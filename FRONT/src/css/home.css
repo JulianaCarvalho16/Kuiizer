@@ -139,3 +139,32 @@ span{
 #pontuacao-valor{
     border:1.5px solid white;
 }
+@media (max-width: 768px) {
+    .menu {
+        float: none;
+        margin: 0;
+        text-align: center;
+    }
+    .menu li {
+        display: block;
+        margin: 10px 0;
+    }
+    .quiz img {
+        width: 100%;
+        height: auto;
+    }
+    #perfil-infor {
+        grid-template-columns: 1fr; /* uma coluna só */
+        width: 90%;
+        margin: 20px auto;
+    }
+    #user-image {
+        margin: 20px auto;
+        width: 60%;
+        height: auto;
+    }
+    h2, h1, span {
+        font-size: 1.2rem;
+        text-align: center;
+    }
+}

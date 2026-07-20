@@ -257,3 +257,44 @@ a{
     border-bottom-left-radius: 15px;
     border-top-left-radius: 15px;
 }
+@media (max-width: 768px) {
+    .menu {
+        float: none;
+        margin: 0;
+        text-align: center;
+    }
+    .menu li {
+        display: block;
+        margin: 10px 0;
+    }
+    .container {
+        flex-direction: column;
+        height: auto;
+        padding: 20px;
+    }
+    .content {
+        width: 90%;
+        height: auto;
+        margin: 0 auto;
+    }
+    .first-content, .second-content {
+        flex-direction: column;
+        align-items: center;
+        margin: 0;
+    }
+    .first-colun, .second-colun {
+        margin: 15px 0;
+        width: 100%;
+    }
+    button {
+        width: 100%;
+        margin: 10px 0;
+    }
+    input {
+        width: 90%;
+        margin: 8px auto;
+    }
+    h3, .title, p {
+        text-align: center;
+    }
+}

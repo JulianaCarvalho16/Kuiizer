@@ -134,3 +134,68 @@ a{
     color: white;
     text-decoration: none;
 }
+@media (max-width: 768px) {
+    .nav-bar {
+        text-align: center;
+        padding: 15px;
+    }
+    .logo {
+        justify-content: center;
+    }
+    #logo {
+        width: 40px;
+        height: auto;
+        margin: 0 auto;
+    }
+    h4 {
+        float: none;
+        text-align: center;
+        margin-top: 10px;
+    }
+    h2, h1, h3 {
+        font-size: 1.2rem;
+        text-align: center;
+        margin: 10px 0;
+    }
+
+    .imgp2 {
+        flex-direction: column;
+        align-items: center;
+    }
+    #imgp {
+        width: 90%;
+        height: auto;
+    }
+    .botoes {
+        margin: 20px auto;
+        text-align: center;
+    }
+    input {
+        width: 90%;
+        margin: 10px auto;
+        display: block;
+    }
+    button {
+        width: 90%;
+        margin: 10px auto;
+        display: block;
+    }
+    ul {
+        flex-wrap: wrap;
+        padding: 0;
+    }
+    li {
+        margin: 5px;
+        width: 30px;
+        height: 25px;
+    }
+    .pergunta {
+        height: auto;
+        padding: 20px;
+    }
+    .endGame {
+        position: relative;
+        margin-top: 50px;
+        height: auto;
+    }
+}

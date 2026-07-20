@@ -74,3 +74,49 @@ a{
     margin-top: 2px;
     text-decoration: none;
 }
+@media (max-width: 768px) {
+    /* Menu */
+    .menu {
+        float: none;
+        margin: 0;
+        text-align: center;
+    }
+    .menu li {
+        display: block;
+        margin: 10px 0;
+    }
+    .menu a {
+        display: block;
+        margin: 5px auto;
+        padding: 12px;
+        font-size: 18px;
+    }
+
+    /* Logo */
+    #logo {
+        width: 40px;
+        height: auto;
+        margin: 10px auto;
+    }
+
+    /* Navbar container */
+    .navbar-container {
+        flex-direction: column;
+        margin: 20px auto;
+        padding: 0 10px;
+    }
+
+    /* Textos */
+    h3 {
+        font-size: 1.2rem;
+        text-align: center;
+    }
+
+    /* Links */
+    a {
+        font-size: 16px;
+        display: block;
+        text-align: center;
+        margin: 8px 0;
+    }
+}
