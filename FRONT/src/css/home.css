@@ -140,31 +140,34 @@ span{
     border:1.5px solid white;
 }
 @media (max-width: 768px) {
+    .nav-bar {
+        padding: 5px 10px;       
+        font-size: 0.9rem;      
+    }
+
+    .logo {
+        align-items: center;
+    }
+
+    #logo {
+        width: 35px;             
+        height: auto;
+        margin: 0 8px;
+    }
+
     .menu {
         float: none;
         margin: 0;
         text-align: center;
     }
+
     .menu li {
-        display: block;
-        margin: 10px 0;
+        display: inline-block;   
+        margin: 0 8px;
     }
-    .quiz img {
-        width: 100%;
-        height: auto;
-    }
-    #perfil-infor {
-        grid-template-columns: 1fr; /* uma coluna só */
-        width: 90%;
-        margin: 20px auto;
-    }
-    #user-image {
-        margin: 20px auto;
-        width: 60%;
-        height: auto;
-    }
-    h2, h1, span {
-        font-size: 1.2rem;
-        text-align: center;
+
+    .menu a {
+        padding: 6px 10px;       
+        font-size: 14px;         
     }
 }
