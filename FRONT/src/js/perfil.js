@@ -1,46 +1,82 @@
 document.addEventListener('DOMContentLoaded', async () => {
-    const quizList = document.getElementById('quizList');
-    const userNameElement = document.querySelector('.profile-container h2');
+  const quizList = document.getElementById('quizList');
+  const quizNamesUl = document.getElementById('quizNames');
+  const quizScoresUl = document.getElementById('quizScores');
+  const userNameElement = document.getElementById('userName');
+  const logoutBtn = document.getElementById('logoutBtn');
 
-    const token = localStorage.getItem('token'); // Supondo que o token esteja armazenado no localStorage
+  const token = localStorage.getItem('token'); 
 
-    try {
-        const response = await fetch('http://localhost:3000/user-results', {
-            method: 'GET',
-            headers: {
-                'Authorization': `Bearer ${token}`,
-                'Content-Type': 'application/json'
-            }
-        });
+  // 🚀 Função de logout
+  if (logoutBtn) {
+    logoutBtn.addEventListener('click', () => {
+      localStorage.removeItem('token'); 
+      window.location.href = "../../pages/conexoes/login.html";
+    });
+  }
 
-        if (!response.ok) {
-            throw new Error('Erro ao carregar resultados do usuário');
-        }
+  if (!token) {
+    window.location.href = "../../pages/login-user/login.html";
+    return;
+  }
 
-        const data = await response.json();
-        const { userName, quizzes } = data;
+  try {
+    const response = await fetch('http://localhost:3000/results', {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      }
+    });
 
-        // Exibir o nome do usuário
-        userNameElement.textContent = `Bem-vindo, ${userName}`;
-
-        // Exibir os quizzes jogados
-        if (quizzes.length === 0) {
-            quizList.innerHTML = '<p>Você ainda não jogou nenhum quiz.</p>';
-            return;
-        }
-
-        quizzes.forEach(result => {
-            const quizItem = document.createElement('div');
-            quizItem.classList.add('quiz-item');
-            quizItem.innerHTML = `
-                <h4>Quiz: ${result.quiz_title}</h4>
-                <p>Pontuação: ${result.score}</p>
-                <p>Data: ${new Date(result.quiz_date).toLocaleDateString()}</p>
-            `;
-            quizList.appendChild(quizItem);
-        });
-    } catch (error) {
-        console.error(error);
-        quizList.innerHTML = '<p>Erro ao carregar resultados. Tente novamente mais tarde.</p>';
+    if (!response.ok) {
+      localStorage.removeItem("token");
+      window.location.href = "../../pages/login-user/login.html";
+      return;
     }
+
+    const data = await response.json();
+
+    const { userName, quizzes, message } = data;
+
+    if (userNameElement) {
+      userNameElement.textContent = `Bem-vindo, ${userName}!`;
+    }
+
+    quizNamesUl.innerHTML = '';
+    quizScoresUl.innerHTML = '';
+
+    if (!quizzes || quizzes.length === 0) {
+      quizList.innerHTML = `<p>${message || "Você ainda não jogou nenhum quiz."}</p>`;
+      return;
+    }
+
+    quizzes.forEach(result => {
+      const liName = document.createElement('li');
+      liName.textContent = result.quizNome;
+
+      const liScore = document.createElement('li');
+      liScore.textContent = `${result.score} pontos`;
+
+      const liDate = document.createElement('li');
+      let date;
+
+      // Tratamento da data
+      if (result.playedAt && result.playedAt.seconds) {
+        date = new Date(result.playedAt.seconds * 1000);
+      } else {
+        date = new Date(result.playedAt);
+      }
+
+      liDate.textContent = `Data: ${date.toLocaleDateString()} ${date.toLocaleTimeString()}`;
+
+      quizNamesUl.appendChild(liName);
+      quizScoresUl.appendChild(liScore);
+      quizScoresUl.appendChild(liDate);
+    });
+
+  } catch (error) {
+    localStorage.removeItem("token");
+    window.location.href = "../../pages/login-user/login.html";
+  }
 });

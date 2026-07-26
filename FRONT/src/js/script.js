@@ -12,6 +12,14 @@ function mostrarPontuacao() {
         container.style.display = 'none';
         endGame.style.display = 'block';
         pontuacaoValor.textContent = pontuacao;
+
+        // 🚀 Salva automaticamente no backend
+        salvarResultado(pontuacao);
+
+        // Mostra também o nome do quiz para o usuário
+        const tituloQuiz = document.createElement("h2");
+        tituloQuiz.textContent = `Quiz concluído: ${quizN}`;
+        endGame.insertBefore(tituloQuiz, endGame.firstChild);
     } else {
         console.error('Elementos necessários não encontrados no DOM.');
     }
@@ -30,9 +38,10 @@ function recomecarQuiz() {
         endGame.style.display = 'none';
 
         document.querySelectorAll('.pergunta input[type="button"]').forEach(botao => {
-            botao.style.backgroundColor = '';
-            botao.disabled = false;
-        });
+        botao.style.background = '';
+        botao.classList.remove('correta', 'errada');
+        botao.disabled = false;
+    });
     } else {
         console.error('Elementos necessários não encontrados no DOM.');
     }
@@ -62,30 +71,21 @@ function verificarResposta(respostaSelecionada) {
     let perguntaAtualElement = perguntas[perguntaAtual];
     let botoesResposta = perguntaAtualElement.querySelectorAll('.botoes input[type="button"]');
 
+    // Desabilita todos os botões e aplica cores
     botoesResposta.forEach(botao => {
+        botao.disabled = true;
+
         if (botao.classList.contains('c')) {
+            botao.style.background = 'green';
             if (botao.value === respostaSelecionada) {
-                botao.style.backgroundColor = 'green';
                 pontuacao++;
             }
         } else if (botao.classList.contains('e')) {
-            if (botao.value === respostaSelecionada) {
-                botao.style.backgroundColor = 'red';
-            }
-        }
-        botao.disabled = true;
-    });
-
-    perguntaAtualElement.querySelectorAll('.botoes .c').forEach(botao => {
-        botao.style.backgroundColor = 'green';
-    });
-
-    perguntaAtualElement.querySelectorAll('.botoes .e').forEach(botao => {
-        if (botao.value !== respostaSelecionada) {
-            botao.style.backgroundColor = 'red';
+            botao.style.background = 'red';
         }
     });
 
+    // Avança para a próxima pergunta depois de 1,5s
     setTimeout(() => {
         mostrarPerguntas(++perguntaAtual);
     }, 1500);
@@ -101,3 +101,32 @@ perguntas.forEach(pergunta => {
 });
 
 mostrarPerguntas(perguntaAtual);
+
+function salvarResultado(score) {
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+        console.error("Token não encontrado. Usuário não está logado.");
+        return;
+    }
+
+    fetch("http://localhost:3000/result", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+        },
+        body: JSON.stringify({
+            quizId: quizId,       // id técnico do quiz
+            quizNome: quizNome,   // nome amigável do quiz
+            score: score
+        })
+    })
+    .then(res => res.json())
+    .then(data => {
+        console.log("Resultado salvo:", data);
+    })
+    .catch(err => {
+        console.error("Erro ao salvar resultado:", err);
+    });
+}

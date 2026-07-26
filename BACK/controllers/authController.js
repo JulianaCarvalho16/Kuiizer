@@ -1,133 +1,125 @@
-const db = require('../config/db');
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
+const db = require("../config/firebase");
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
 // Registro do usuário
-exports.register = (req, res) => {
-    const { name, email, password } = req.body;
-    console.log('Dados recebidos para registro:', name, email, password);
+exports.register = async (req, res) => {
+  try {
+    const { name, email, password } = req.body;;
+    await db.collection("users").doc(email).set({ name, email, password });
 
-    if (!name || !email || !password) {
-        console.log('Dados incompletos para registro');
-        return res.status(400).json({ message: 'Nome, email e senha são obrigatórios' });
-    }
-
-    const hash = bcrypt.hashSync(password, 10);
-    const sql = 'INSERT INTO cadastro (name, email, password) VALUES (?, ?, ?)';
-    console.log('SQL para registro:', sql);
-
-    db.query(sql, [name, email, hash], (err, result) => {
-        if (err) {
-            console.error('Erro ao registrar usuário:', err);
-            return res.status(500).json({ message: 'Erro ao registrar usuário' });
-        }
-        console.log('Registro bem-sucedido:', result);
-        res.status(200).json({ message: 'Usuário registrado com sucesso' });
-    });
+    res.status(200).json({ message: "Usuário registrado com sucesso" });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
 };
 
-// Login do usuário
-exports.login = (req, res) => {
+// Login
+exports.login = async (req, res) => {
+  try {
     const { email, password } = req.body;
-    console.log('Dados recebidos para login:', email, password);
+    const userDoc = await db.collection("users").doc(email).get();
 
-    if (!email || !password) {
-        return res.status(400).json({ message: 'Email e senha são obrigatórios' });
+    if (!userDoc.exists) {
+      return res.status(404).json({ error: "Usuário não encontrado" });
+    }
+    const userData = userDoc.data();
+
+    if (userData.password !== password) {
+      return res.status(401).json({ error: "Senha incorreta" });
     }
 
-    const sql = 'SELECT * FROM cadastro WHERE email = ?';
-    console.log('SQL para login:', sql);
+    const token = jwt.sign({ email }, process.env.JWT_SECRET, { expiresIn: "1h" });
 
-    db.query(sql, [email], (err, results) => {
-        if (err) {
-            console.error('Erro ao realizar login:', err);
-            return res.status(500).json({ message: 'Erro ao realizar login' });
-        }
-
-        if (results.length === 0) {
-            return res.status(400).json({ message: 'Usuário não encontrado' });
-        }
-
-        const user = results[0];
-        const isMatch = bcrypt.compareSync(password, user.password);
-        console.log('Senha correspondente:', isMatch);
-
-        if (!isMatch) {
-            return res.status(400).json({ message: 'Credenciais inválidas' });
-        }
-
-        const token = jwt.sign({ id: user.id }, 'secretKey', { expiresIn: '1h' });
-        console.log('Token gerado:', token);
-
-        res.status(200).json({ message: 'Login realizado com sucesso!', token, redirectUrl: '/home2.html' });
-    });
+    res.status(200).json({ message: "Login realizado com sucesso!", token, redirectUrl: "/home2.html" });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
 };
 
 // Logout
-exports.logout = (req, res) => {
-    let token = req.headers['authorization'];
-    console.log('Token recebido para logout:', token);
-
-    if (!token) {
-        return res.status(400).json({ message: 'Token não fornecido' });
-    }
-
-    if (token.startsWith('Bearer ')) {
-        token = token.slice(7, token.length);
-    }
-
-    db.query('UPDATE cadastro SET token = NULL WHERE token = ?', [token], (err) => {
-        if (err) {
-            return res.status(500).json({ message: 'Erro ao realizar logout' });
-        }
-
-        res.status(200).json({ message: 'Logout realizado com sucesso' });
-    });
+exports.logout = async (req, res) => {
+  res.status(200).json({ message: "Logout realizado com sucesso" });
 };
 
-// Middleware para verificar o token JWT
+// Middleware JWT
 exports.verifyToken = (req, res, next) => {
-    const token = req.headers['authorization'];
-    console.log('Token recebido para verificação:', token);
+  let token = req.headers["authorization"];
 
-    if (!token) {
-        return res.status(403).json({ message: 'Token não fornecido' });
+  if (!token) return res.status(403).json({ message: "Token não fornecido" });
+
+  if (token.startsWith("Bearer ")) token = token.slice(7);
+
+  jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+    if (err) {
+      return res.status(500).json({ message: "Token inválido" });
     }
-
-    if (token.startsWith('Bearer ')) {
-        token = token.slice(7, token.length);
-    }
-
-    jwt.verify(token, 'secretKey', (err, decoded) => {
-        if (err) {
-            return res.status(500).json({ message: 'Token inválido' });
-        }
-        req.userId = decoded.id;
-        next();
-    });
+    req.user = { email: decoded.email }; // garante que req.user.email exista
+    next();
+  });
 };
 
-// Obter resultados do usuário
-// Obter resultados do usuário e nome
-exports.getUserResults = (req, res) => {
-    const userId = req.userId;
+// Salvar resultado do quiz
+exports.saveResult = async (req, res) => {
+  try {
+    const { quizId, quizNome, score, playedAt } = req.body;
+    const userEmail = req.user.email;
 
-    const sql = `
-        SELECT qr.id, q.title as quiz_title, qr.score, qr.quiz_date, u.name
-        FROM user_results qr
-        JOIN quizzes q ON qr.quiz_id = q.id
-        JOIN users u ON qr.user_id = u.id
-        WHERE qr.user_id = ?`;
+    if (!quizId || !quizNome) {
+      return res.status(400).json({ error: "quizId e quizNome são obrigatórios" });
+    }
 
-    db.query(sql, [userId], (err, results) => {
-        if (err) {
-            console.error('Erro ao obter resultados do usuário:', err);
-            return res.status(500).json({ message: 'Erro ao obter resultados do usuário' });
-        }
-        if (results.length > 0) {
-            res.status(200).json({ userName: results[0].name, quizzes: results });
-        } else {
-            res.status(200).json({ userName: '', quizzes: [] });
-        }
+    const resultData = {
+      userEmail,
+      quizId,
+      quizNome,
+      score: score || 0,
+      playedAt: playedAt ? new Date(playedAt) : new Date()
+    };
+
+    await db.collection("results").add(resultData);
+
+    res.status(201).json({ message: "Resultado salvo com sucesso!" });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+// Buscar resultados do usuário
+exports.getUserResults = async (req, res) => {
+  try {
+    const userEmail = req.user.email;
+    const userDoc = await db.collection("users").doc(userEmail).get();
+    if (!userDoc.exists) {
+      return res.status(404).json({ error: "Usuário não encontrado" });
+    }
+    const userData = userDoc.data();
+
+    const snapshot = await db.collection("results")
+      .where("userEmail", "==", userEmail)
+      .get();
+
+    if (snapshot.empty) {
+      return res.status(200).json({
+        userName: userData.name,
+        quizzes: [],
+        message: "Usuário ainda não jogou nenhum quiz"
+      });
+    }
+
+    const quizzes = snapshot.docs.map(doc => {
+      const data = doc.data();
+      return {
+        quizNome: data.quizNome, // agora bate com o que foi salvo
+        score: data.score,
+        playedAt: data.playedAt instanceof Date 
+          ? data.playedAt.toISOString() 
+          : data.playedAt.toDate().toISOString()
+      };
     });
+
+    res.status(200).json({ userName: userData.name, quizzes });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
 };

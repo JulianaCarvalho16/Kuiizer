@@ -1,47 +1,45 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../css/home.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../../css/perfil.css">
+  <title>Perfil - Kuizer</title>
 </head>
 <body>
-    <nav class="nav-bar">
-        <div class="logo">
-            <img id="logo" src="../../assets/logo.png" alt="logo-mindmeld">
-            <h3><a href="./home2.html">Kuizer</a></h3>
-        </div>
-        <ul class="menu">
-            <li><a href="./home2.html">Página Inicial</a></li>
-            <li><a href="#">Sobre</a></li>
-            <li><a href="#">Serviços</a></li>
-            <li><a href="#">Contato</a></li>
-            <li><a href="./perfil.html">Perfil</a></li>
-        </ul>
-    </nav>
-    <br><br><br>
-    <div class="profile-container">
-        <h2>Bem-vindo, [Nome do Usuário]</h2>
-        <div id="user-image"><img src="../../assets/user_test.png"></div><br>
-        <h3 id="infor1">Quizzes Jogados</h3>
-        <div id="perfil-infor"><div id="quizList">Quizzes
-            <ul style=" list-style-type: none;">
-            <li>Homen-Aranha</li>
-            <li>Animes</li>
-            <li>Evangelion</li>
-          </ul>
-        </div>
-        <div id="pontuacao-valor" >Pontuação
-            <ul style=" list-style-type: none;">
-            <li>6</li>
-            <li>10</li>
-            <li>8</li>
-          </ul> 
-          <!-- Pontuação aqui --></div></div>
-        <div id="perguntas" style="display: none;">Perguntas: <!-- Perguntas aqui --></div>
+  <nav class="nav-bar">
+    <div class="logo">
+      <img id="logo" src="../../assets/logo.png" alt="logo-kuizer">
+      <h3><a href="../login-user/home2.html">Kuizer</a></h3>
     </div>
+    <ul class="menu">
+      <li><a href="../login-user/home2.html">Página Inicial</a></li>
+      <li><a href="#">Sobre</a></li>
+      <li><a href="#">Serviços</a></li>
+      <li><a href="#">Contato</a></li>
+      <li><a href="./perfil.htm">Perfil</a></li>
+    </ul>
+  </nav>
+
+   <main class="perfil-container">
+      <h2 id="userName">Bem-vindo!</h2>
+      <div id="user-image">
+        <img id="user-avatar" src="../../assets/user_test.png" alt="Usuário">
+      </div>
+      <h3>Quizzes Jogados</h3>
+      <div id="perfil-infor">
+        <div id="quizList">
+          <h3>Quizzes</h3>
+          <ul id="quizNames" style="list-style-type:none;"></ul>
+        </div>
+        <div id="pontuacao-valor">
+          <h3>Pontuações</h3>
+          <ul id="quizScores" style="list-style-type:none;"></ul>
+        </div>
+        <button id="logoutBtn">Sair</button> 
+      </div>
+    </main>
+
+  <script src="../../js/perfil.js"></script>
 </body>
 </html>

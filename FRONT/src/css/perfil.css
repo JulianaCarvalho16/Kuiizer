@@ -1,126 +1,187 @@
 *{
     padding: 0;
     margin: 0;
+    box-sizing: border-box;
 }
-body{
-    background-color: rgb(0, 0, 0);
-    color: white;
-    background-repeat: no-repeat;
-    background-size: 100% 100%;
+body {
+    background-color: #000;
+    color: #fff;
     font-family: "Pacifico", cursive;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
-.nav-bar{
-    background-image: -webkit-gradient(linear,left top,right top,from(#15136d),to(#580b4a));
-    background-image: linear-gradient(90deg,#0d0c5f, #641155);
+.nav-bar {
+    background-image: linear-gradient(90deg, #0d0c5f, #641155);
     color: white;
     padding: 10px 0;
     text-align: center;
     border-radius: 5px;
+    margin: 3px 4px;
     font-family: "Pacifico", cursive;
-    margin: 3px 4px 4px 3px;
-}
-.menu {
-    list-style-type: none;
-    margin-top: -38px;
-    float: right;
-    margin-right: 50px;
-}
-.menu li {
-    display: inline-block;   
-}
-.menu a{
-    text-decoration: none; 
-    color: inherit;
-    text-align: center;
-    display: inline-block;
-    padding: 10px 20px;
-    margin-left: 20px;    
-    color: white;
-    text-align: center;
-    text-decoration: none;
-    font-size: 16px;
-    border: none;
-    border-radius: 2px;
-    cursor: pointer;
-}
-.menu a:hover{
-    transform: scale(1.1);
-    transition: transform 0.3s ease-in-out; 
-    
-}
-.logo{
     display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
-#logo{
-    width: 48px;
-    margin-top: 3px;
-    height: 30px;
-    vertical-align: middle;
-}
-h3{
-    margin-top: 12px;
-    font-family: "Pacifico", cursive;
-    color: white;
-}
-.navbar-container{
+.navbar-container {
     max-width: 800px;
     margin: 50px auto;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
 }
-a{
-    color: #fff;
-    margin-top: 2px;
-    text-decoration: none;
+.logo {
+    display: flex;
+    align-items: center;
+    margin-left: 20px;
 }
-@media (max-width: 768px) { 
+#logo {
+    width: 48px;
+    height: 30px;
+    margin-top: 3px;
+    vertical-align: middle;
+}
+.menu {
+    list-style-type: none;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-right: 50px;
+}
+.menu li {
+    display: inline-block;
+}
+.menu a {
+    text-decoration: none;
+    color: white;
+    font-size: 16px;
+    padding: 10px 20px;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out;
+}
+.menu a:hover {
+    transform: scale(1.1);
+}
+h3, h2, .title, p, ul{
+    margin-top: 12px;
+    font-family: "Pacifico", cursive;
+    color: white;
+    text-align: center;
+}
+a {
+    color: #fff;
+    text-decoration: none;
+    margin-top: 2px;
+}
+#user-avatar{
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+    margin: 0 auto;
+}
+button {
+    border-radius: 15px;
+    margin-top: 1rem;
+    margin-left: 15px;
+    width: 150px;
+    border: 1px solid #fff;
+    text-align: center;
+    cursor: pointer;
+    display: block;
+    margin: 0 auto;
+    margin-top: 10px;
+}
+input{
+    border-radius: 10px;
+    margin-top: 4px;
+    border: none;
+}
+@media (max-width: 768px) {
     .nav-bar {
-        padding: 6px 10px;       
-        font-size: 0.9rem;       
-    }
-
-    .logo {
+        padding: 6px 10px;
+        font-size: 0.9rem;
+        flex-direction: column;
         align-items: center;
-        justify-content: flex-start;
     }
-
-    #logo {
-        width: 35px;             
+       .logo {
+        justify-content: center;
+        margin: 10px 0;
+    }
+        #logo {
+        width: 35px;
         height: auto;
         margin: 0 8px;
     }
-
-    /* Menu */
-    .menu {
-        float: none;
-        margin: 0;
-        text-align: center;
+     .menu {
+        margin: 10px 0;
+        justify-content: center;
+        gap: 12px;
     }
-
-    .menu li {
-        display: inline-block;   
-        margin: 0 8px;
+     .menu a {
+        padding: 6px 10px;
+        font-size: 14px;
     }
-
-    .menu a {
-        padding: 6px 10px;       
-        font-size: 14px;         
-    }
-
-    .navbar-container {
+     .navbar-container {
         flex-direction: column;
         margin: 20px auto;
-        padding: 0 10px;
-    }
-    h3 {
-        font-size: 1rem;
+        padding: 0 10px
+     }
+    .perfil-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center; 
+        justify-content: center;
         text-align: center;
-        margin: 8px 0;
+        margin: 40px auto;
+        max-width: 600px;
+        padding: 20px;
     }
-    a {
-        font-size: 14px;
-        display: inline-block;
-        margin: 5px;
+      #perfil-infor {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        margin: 20px auto;
+        width: 100%;
+    }
+        #quizList, #pontuacao-valor {
+        margin: 15px 0;
+        text-align: center;
+    }
+        #LogoutBtn {
+        margin: 20px auto;
+        display: block;
+    }
+        #userName {
+        font-size: 1.5rem;
+        margin-bottom: 15px;
+    }
+      #user-image {
+        display: flex;
+        justify-content: center;
+        margin: 15px 0;
+    }
+      #LogoutBtn {
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
+    button {
+        width: 50%;
+        display: block;
+        margin: 0 auto;
+    }
+
+    input {
+        width: 90%;
+        display: block;
+        margin: 10px auto;
+    }
+
+    h3, .title, p {
+        text-align: center;
     }
 }

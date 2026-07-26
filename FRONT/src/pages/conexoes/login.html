@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-store" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
     <link rel="stylesheet" href="../../css/login.css">
     <title> Login </title>
 </head>
@@ -10,10 +13,10 @@
     <nav class="nav-bar">
         <div class="logo">
             <img id="logo" src="../../assets/logo.png" alt="logo-mindmeld">
-            <h3><a href="../../index.html">Kuizer</a></h3>
+            <h3><a href="../login-user/home2.html">Kuizer</a></h3>
         </div>
         <ul class="menu">
-            <li><a href="../../index.html">Página Inicial</a></li>
+            <li><a href="../login-user/home2.html">Página Inicial</a></li>
             <li><a href="#">Sobre</a></li>
             <li><a href="#">Serviços</a></li>
             <li><a href="#">Contato</a></li>
@@ -30,10 +33,10 @@
                     <div class="second-colun">
                         <h2 class="title">Crie Sua conta</h2>
                         <form id="registerForm" class="formulario">
-                            <input type="text" id="name" placeholder="Name" required>
-                            <input type="email" id="email" placeholder="Email" required>
-                            <input type="password" id="password" placeholder="Password" required>
-                            <button class="btn btn-secondary" type="submit">Register</button>
+                            <input type="text" id="name" placeholder="Name" required autocomplete="new-username">
+                            <input type="email" id="email" placeholder="Email" required autocomplete="new-password">
+                            <input type="password" id="password" placeholder="Password" required autocomplete="off">
+                            <button class="btn btn-secondary" type="submit"> Register </button>
                         </form>
                     </div>
                 </div>
@@ -46,9 +49,9 @@
                     </div>
                     <div class="second-colun">
                         <h2 class="title"> Acesse sua conta </h2>
-                        <form id="loginForm" class="formulario">
-                            <input id="email" type="text" placeholder="E-mail" required>
-                            <input id="password" type="password" placeholder="Senha" required>
+                        <form id="loginForm" class="formulario"  autocomplete="off">
+                            <input id="email" type="text" placeholder="E-mail" required autocomplete="new-username">
+                            <input id="password" type="password" placeholder="Senha" required autocomplete="new-password">
                             <a href="#">Esqueceu sua senha</a>
                             <button type="submit" class="btn btn-secondary"> Entrar </button>
                         </form> 

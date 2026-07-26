@@ -1,210 +1,304 @@
-*{
+* {
     padding: 0;
     margin: 0;
+    box-sizing: border-box;
 }
-body{
-    background-color: rgb(0, 0, 0);
-    color: white;
-    background-repeat: no-repeat;
-    background-size: 100% 100%;
-    
-}
-.nav-bar{
-    background-image: -webkit-gradient(linear,left top,right top,from(#15136d),to(#580b4a));
-    background-image: linear-gradient(90deg,#0d0c5f, #641155);
-    color: white;
-    padding: 10px 0;
-    text-align: center;
-    border-radius: 5px;
-    font-family: "Pacifico", cursive;
-    margin: 3px 4px 4px 3px;
-}
-.menu {
-    list-style-type: none;
-    margin-top: -38px;
-    float: right;
-    margin-right: 50px;
-}
-.menu li {
-    display: inline-block;   
-}
-.menu a{
-    text-decoration: none; 
-    color: inherit;
-    text-align: center;
-    display: inline-block;
-    padding: 10px 20px;
-    margin-left: 20px;    
-    color: white;
-    text-align: center;
-    text-decoration: none;
-    font-size: 16px;
-    border: none;
-    border-radius: 2px;
-    cursor: pointer;
-}
-.menu a:hover{
-    transform: scale(1.1);
-    transition: transform 0.3s ease-in-out; 
-    
-}
-.logo{
-    display: flex;
-}
-#logo{
-    width: 48px;
-    margin-top: 3px;
-    height: 30px;
-    vertical-align: middle;
-}
-.container{
-    max-width: 800px;
-    margin: 50px auto;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-}
-h2{
-    font-family: "Pacifico", cursive;
-    font-size: 1.5rem;
-    display: flex;
-    justify-content: center;
-    margin-top: -30px;
-    margin-bottom: 30px;
-}
-#quiz1{
-    margin-top: -60px;
-}
-.quiz img {
-    width: 700px;
-    height: 400px;
-    border-radius: 5%;
-    margin-bottom: 40px;
-    margin-top: 50px;
-    border: 5px solid #7125ab;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-.quiz a {
-    text-decoration: none; 
-    color: inherit;
-    text-align: center; 
-}
-.quiz:hover {
-    transform: scale(1.1);
-    transition: transform 0.3s ease-in-out;
 
-}
-h1{
-    margin-bottom: 20px;
-    margin-top: -10px;
-    border: 1px solid #7125ab;
-    background-image: -webkit-gradient(linear,left top,right top,from(#15136d),to(#580b4a));
-    background-image: linear-gradient(90deg,#0d0c5f, #641155);
-    border-radius: 2%;
-}
-span{
+body {
+    background: linear-gradient(135deg, #000000 0%, #1a1a2e 100%);
+    color: white;
     font-family: "Pacifico", cursive;
+    min-height: 100vh;
+    padding: 10px;
+}
+
+/* ========== NAVBAR ========== */
+.nav-bar {
+    background-image: linear-gradient(90deg, #0d0c5f, #641155);
+    color: white;
+    padding: 15px 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#logo {
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
+}
+
+.logo h3 {
     font-size: 1.5rem;
-    display: flex;
-    justify-content: center;
-    margin-top: 15px;
-    margin-bottom: -15px;
-    font-weight: bold;
-    }
-   #infor1{
-    margin-left: 45%;
-   }
-#user-image{
-    border:1.5px solid white;
-    border-radius: 100px;
-    display: flex;
-    justify-content: center;
-    margin-left: 42%;
-    width:13rem ;
-    height: 8rem;
+    margin: 0;
 }
-#perfil-infor{
-    background-image: -webkit-gradient(linear,left top,right top,from(#15136d),to(#580b4a));
-    background-image: linear-gradient(90deg,#0d0c5f, #641155);
-    border:1.5px solid white;
-    display: grid;
-    grid-template-columns: 50% 50%;
+
+.logo h3 a {
+    color: white;
+    text-decoration: none;
+}
+
+.menu {
+    list-style: none;
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    margin: 0;
+    padding: 0;
+}
+
+.menu li {
+    display: inline-block;
+}
+
+.menu a {
+    text-decoration: none;
+    color: white;
+    font-size: 1rem;
+    padding: 8px 15px;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+.menu a:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    transform: scale(1.05);
+}
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* colunas flexíveis */
+  gap: 25px;
+  margin: 20px 0;
+}
+
+.quiz {
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.quiz img {
+  width: 100%;              /* ocupa toda a largura do card */
+  height: 200px;            /* altura fixa para padronizar */
+  object-fit: cover;        /* corta a imagem sem distorcer */
+  border-radius: 15px;
+  border: 4px solid #7125ab;
+  box-shadow: 0 8px 20px rgba(113, 37, 171, 0.4);
+}
+
+.quiz h1 {
+  font-size: 1.2rem;
+  margin-top: 10px;
+  color: #fff;
+}
+
+
+h1 {
     text-align: center;
-    width: 50REM;
-    margin-left: 23%;
+    width: 100%;
+    margin: 20px 0;
+    padding: 20px;
+    background-image: linear-gradient(90deg, #0d0c5f, #641155);
+    border-radius: 15px;
+    font-size: 2rem;
 }
-#quizList{
-    border:1.5px solid white;
+
+h2 {
+    font-size: 1.5rem;
+    text-align: center;
+    margin: 20px 0;
 }
-#pontuacao-valor{
-    border:1.5px solid white;
+
+span {
+    font-size: 1.3rem;
+    text-align: center;
+    display: block;
+    margin: 15px 0;
 }
+
+/* ========== QUIZ CARDS ========== */
+.quiz {
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.quiz:hover {
+    transform: scale(1.05);
+}
+
+.quiz img {
+    width: 100%;
+    max-width: 700px;
+    height: auto;
+    aspect-ratio: 16/9;
+    border-radius: 15px;
+    border: 5px solid #7125ab;
+    box-shadow: 0 10px 30px rgba(113, 37, 171, 0.4);
+    object-fit: cover;
+}
+
+.quiz a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* ========== PERFIL ========== */
+#perfil-infor {
+    background-image: linear-gradient(90deg, #0d0c5f, #641155);
+    border: 2px solid white;
+    border-radius: 15px;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    text-align: center;
+    margin: 30px auto;
+    max-width: 900px;
+}
+
+#user-image {
+    width: 150px;
+    height: 150px;
+    border: 3px solid white;
+    border-radius: 50%;
+    margin: 0 auto 20px;
+    display: block;
+    object-fit: cover;
+}
+
+#quizList,
+#pontuacao-valor {
+    border: 1.5px solid white;
+    padding: 15px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* ========== RESPONSIVIDADE ========== */
+@media (max-width: 1024px) {
+    .quiz img {
+        max-width: 600px;
+    }
+
+    #perfil-infor {
+        grid-template-columns: 1fr;
+    }
+}
+
 @media (max-width: 768px) {
+    body {
+        padding: 5px;
+    }
+
     .nav-bar {
-        padding: 5px 10px;       
-        font-size: 0.9rem;      
+        flex-direction: column;
+        text-align: center;
+        padding: 15px;
     }
 
     .logo {
-        align-items: center;
+        justify-content: center;
+        margin-bottom: 10px;
     }
 
     #logo {
-        width: 35px;             
-        height: auto;
-        margin: 0 8px;
+        width: 40px;
+        height: 40px;
+    }
+
+    .logo h3 {
+        font-size: 1.3rem;
     }
 
     .menu {
-        float: none;
-        margin: 0;
-        text-align: center;
-    }
-
-    .menu li {
-        display: inline-block;   
-        margin: 0 8px;
+        justify-content: center;
+        gap: 10px;
+        width: 100%;
     }
 
     .menu a {
-        padding: 6px 10px;       
-        font-size: 14px;         
-    }
-}
-@media (max-width: 1024px) {
-    .menu {
-        gap: 1rem;
-    }
-    .menu li a {
-        font-size: 0.9rem;
-    }
-}
-
-@media (max-width: 768px) {
-    .nav-bar {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-    .menu {
-        flex-wrap: wrap;
-        gap: 0.8rem;
-    }
-    .menu li a {
         font-size: 0.85rem;
+        padding: 6px 10px;
+    }
+
+    .container {
+        padding: 10px;
+        gap: 20px;
+    }
+
+    h1 {
+        font-size: 1.5rem;
+        padding: 15px;
+    }
+
+    h2 {
+        font-size: 1.2rem;
+    }
+
+    span {
+        font-size: 1.1rem;
+    }
+
+    .quiz img {
+        max-width: 100%;
+        border-width: 3px;
+    }
+
+    #perfil-infor {
+        padding: 15px;
+        margin: 20px 10px;
+    }
+
+    #user-image {
+        width: 120px;
+        height: 120px;
     }
 }
 
 @media (max-width: 480px) {
     .logo h3 {
-        font-size: 1rem;
+        font-size: 1.1rem;
     }
+
+    #logo {
+        width: 35px;
+        height: 35px;
+    }
+
     .menu {
         flex-direction: column;
-        align-items: flex-start;
+        gap: 8px;
+    }
+
+    .menu a {
+        font-size: 0.8rem;
         width: 100%;
     }
-    .menu li a {
-        font-size: 0.8rem;
-        padding: 0.3rem 0;
+
+    h1 {
+        font-size: 1.2rem;
+        padding: 12px;
+    }
+
+    h2 {
+        font-size: 1rem;
+    }
+
+    span {
+        font-size: 1rem;
+    }
+
+    #user-image {
+        width: 100px;
+        height: 100px;
     }
 }
